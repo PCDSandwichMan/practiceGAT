@@ -1,0 +1,55 @@
+// ! TEST
+* {
+  border: crimson 1px solid;
+}
+
+// ! Global Resets
+html {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+// ! Main Grid & Page Adjusments
+fullPage grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template: repeat(7, 1fr) / repeat(5, 1fr);
+  grid-template-areas:
+    'head head head head head'
+    'sNav main   main   main   main'
+    'sNav main   main   main   main'
+    'sNav main   main   main   main'
+    'sNav main   main   main   main'
+    'sNav main   main   main   main'
+    'footer footer footer footer footer';
+}
+
+// ! Header
+header {
+  grid-area: head;
+}
+
+// ! Main contents
+aside {
+  grid-area: sNav;
+  ul {
+    list-style: none;
+  }
+}
+
+main {
+  grid-area: main;
+}
+
+// ! Footer
+footer {
+  grid-area: footer;
+}
