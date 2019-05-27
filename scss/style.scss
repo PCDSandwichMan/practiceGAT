@@ -1,7 +1,6 @@
-// ! TEST
-* {
-  border: crimson 1px solid;
-}
+@import './helpers/variables';
+@import './helpers/placeholders.scss';
+@import './helpers/commonClasses.scss';
 
 // ! Global Resets
 html {
@@ -9,7 +8,7 @@ html {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-body {
+* {
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
@@ -17,39 +16,80 @@ body {
 }
 
 // ! Main Grid & Page Adjusments
-fullPage grid {
+body {
+  background: linear-gradient(#0000002f, #0000002f),
+    url(../images/cityNight.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: $outlineText;
+}
+
+.fullPage {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template: repeat(7, 1fr) / repeat(5, 1fr);
   grid-template-areas:
     'head head head head head'
-    'sNav main   main   main   main'
-    'sNav main   main   main   main'
-    'sNav main   main   main   main'
-    'sNav main   main   main   main'
-    'sNav main   main   main   main'
-    'footer footer footer footer footer';
+    'side main   main   main   main'
+    'side main   main   main   main'
+    'side main   main   main   main'
+    'side main   main   main   main'
+    'side main   main   main   main'
+    'side main   main   main   main';
 }
 
 // ! Header
 header {
   grid-area: head;
-}
-
-// ! Main contents
-aside {
-  grid-area: sNav;
-  ul {
-    list-style: none;
+  @extend %flexCompleteCenter;
+  background-color: $outerTextColor;
+  h1 {
+    font-size: 4rem;
+    color: $outlineText;
+  }
+  h4 {
+    font-size: 1rem;
+    padding-bottom: 1vh;
   }
 }
 
+// ! Sidebar
+aside {
+  grid-area: side;
+  background-color: $outerTextColor;
+  h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vw 0vw;
+    font-size: 1.8rem;
+  }
+  ul {
+    list-style: none;
+    li {
+      padding: 0.5vw 1vw;
+      color: $outlineText;
+    }
+  }
+}
+
+// ! Main Boxes
 main {
   grid-area: main;
 }
 
-// ! Footer
-footer {
-  grid-area: footer;
+.boxes {
+  display: grid;
+  padding: 2vw;
+  grid-gap: 2vw;
+  grid-template: auto / repeat(4, 1fr);
+  div {
+    background-color: $cardBackground;
+    padding: 1.2vw;
+    border-radius: 10px;
+    p {
+      text-align: center;
+    }
+  }
 }
