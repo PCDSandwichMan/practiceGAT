@@ -1,7 +1,6 @@
 @import './helpers/variables';
-@import './helpers/placeholders.scss';
-@import './helpers/commonClasses.scss';
-@import './buttons/buttonChanges.scss';
+@import './helpers/placeholders';
+@import './helpers/commonClasses';
 
 // ! Global Resets
 html {
@@ -15,6 +14,7 @@ html {
   margin: 0px;
   list-style: none;
 }
+
 
 // ! Main Grid & Page Adjusments
 body {
@@ -95,12 +95,17 @@ main {
     padding: 1vw;
     border-radius: 10px;
     box-shadow: 1px 2px 5px #000;
-    p {
-      font-size: 1.4rem;
+    a {
+      @extend %flexCompleteCenter;
+      font-size: 1.5rem;
+      text-transform: capitalize;
     }
     &:hover {
       background-color: $cardBackgroundHover;
       cursor: pointer;
+    }
+    &:active{
+      transform: scale(1.04);
     }
   }
 }

@@ -1,4 +1,4 @@
-header, .boxes .card {
+header, .boxes .card, .boxes .card a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,6 +16,68 @@ header, .boxes .card {
 
 .hide {
   display: none;
+}
+
+.betterHover a {
+  -webkit-transform: translate(-0.001%, -0.001%);
+          transform: translate(-0.001%, -0.001%);
+  width: 100%;
+  height: 10rem;
+  text-align: center;
+  line-height: 60px;
+  background: -webkit-gradient(linear, left top, right top, from(#03a9f4), color-stop(#f441a5), color-stop(#ffeb3b), to(#03a9f4));
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.betterHover a:hover {
+  -webkit-animation: animate 5s linear infinite;
+          animation: animate 5s linear infinite;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
+.betterHover a:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: -webkit-gradient(linear, left top, right top, from(#03a9f4), color-stop(#f441a5), color-stop(#ffeb3b), to(#03a9f4));
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 40px;
+  opacity: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.betterHover a:hover:before {
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
+  opacity: 1;
+  -webkit-animation: animate 5s linear infinite;
+          animation: animate 5s linear infinite;
 }
 
 html {
@@ -129,12 +191,18 @@ main {
           box-shadow: 1px 2px 5px #000;
 }
 
-.boxes .card p {
-  font-size: 1.4rem;
+.boxes .card a {
+  font-size: 1.5rem;
+  text-transform: capitalize;
 }
 
 .boxes .card:hover {
   background-color: #dc143c57;
   cursor: pointer;
+}
+
+.boxes .card:active {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
 }
 /*# sourceMappingURL=style.css.map */
