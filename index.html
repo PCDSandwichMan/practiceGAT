@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" href="images/button-icon.png">
+    <link rel="icon" href="images/button-icon.png" />
     <title>Pressing My Buttons</title>
     <link rel="stylesheet" href="scss/style.css" />
   </head>
@@ -24,6 +24,15 @@
           <li>Don't Do It..... Trust Me....</li>
         </ul>
       </aside>
+      <!-- ! Multi Use Modal For API Display -->
+      <div class="modalMainContainer">
+        <div class="modalContentContainer">
+          <span class="closeBtn">&times;</span>
+          <h2 class="modalHeader">This is a Header</h2>
+          <h4 class="modalBody">This is the Body</h4>
+          <h2 class="modalFooter">This is a Footer</h2>
+        </div>
+      </div>
       <main>
         <div class="boxes grid">
           <div
@@ -40,19 +49,19 @@
               Toggle Button Color
             </a>
           </div>
-          <div class="card" id='removeCSS' onClick="removeCSS()">
+          <div class="card" id="removeCSS" onClick="removeCSS()">
             <a>
               remove All CSS
             </a>
           </div>
-          <div class="card" id='betterHover' onClick="betterHover()">
+          <div class="card" id="betterHover" onClick="betterHover()">
             <a>
               buttons V2
             </a>
           </div>
-          <div class="card" id="poleWeather">
+          <div class="card" id="getWeather" onClick='getWeather()'>
             <a>
-              Weather In Antartica
+              Whats the weather
             </a>
           </div>
           <div class="card">

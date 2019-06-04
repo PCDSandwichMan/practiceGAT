@@ -1,8 +1,6 @@
-// ! Helpers
-
 // ! CSS Buttons Functions
 
-// ? Backgronud Change
+// ? Background Change
 function backgronudImageChange() {
   const newImage = 'url(../images/getRolled.png) no-repeat center center fixed';
   const imageDefaults = document.body.style;
@@ -30,27 +28,71 @@ function changeTextColor() {
 }
 
 // ? Remove All CSS
-function removeCSS() {  
-    setTimeout(() => {
-        document.styleSheets[0].disabled = false;
-    }, 4000);
-  
-    document.styleSheets[0].disabled = true;
-  }
+function removeCSS() {
+  setTimeout(() => {
+    document.styleSheets[0].disabled = false;
+  }, 4000);
+
+  document.styleSheets[0].disabled = true;
+}
 
 // ? Better Hover Effects
 // TODO finish this my dude
 function betterHover() {
-    let textTags = document.getElementsByClassName('card');
-    
-    console.log(textTags[1].classList);
-    for (i = 0; i < textTags.length; ++i) {
-        textTags[i].classList.toggle('betterHover');
-    }
+  let textTags = document.getElementsByClassName('card');
+
+  for (i = 0; i < textTags.length; ++i) {
+    textTags[i].classList.toggle('betterHover');
+  }
 }
 
 // ! API Buttons
 
-// ? Weather in Antarica
-// function getWeather() {
-// }
+// ! Get the weather
+// ? Get the weather
+let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
+let long = 0;
+let lat = 0;
+let otherQueries = 'units=imperial';
+let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21';
+
+// ? Helpers for get weather
+// TODO - IT WORKS!!!!!!!!
+function checkGeo() {
+  // ! CHECKS FOR AND STORES GEOLOCATION AVAILABLE
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(position => {
+      console.log('Fetching geolocation');
+      tempLat = JSON.parse(position.coords.latitude);
+      tempLong = JSON.parse(position.coords.longitude);
+      lat = tempLat;
+      long = tempLong;
+      console.log(lat, long);
+    });
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// ? Click event
+function getWeather() {
+  if (checkGeo()) {
+    checkGeo();
+    console.log('Get geolocation weather has activated');
+    // ! fetches API
+    setTimeout(() => {
+      fetch(
+        `${weatherURL}lat=${lat}&lon=${long}&${weatherApikey}&${otherQueries}`
+      )
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(JSON.stringify(myJson));
+        });
+    }, 10000);
+  } else {
+    console.log('Geolocation is not available');
+  }
+}
