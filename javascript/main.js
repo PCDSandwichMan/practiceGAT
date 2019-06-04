@@ -54,7 +54,7 @@ let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
 let long = 0;
 let lat = 0;
 let otherQueries = 'units=imperial';
-let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21';
+let weatherApikey = '&APPID='; //TODO - add api key
 
 // ? Helpers for get weather
 // TODO - IT WORKS!!!!!!!!
@@ -62,7 +62,6 @@ function checkGeo() {
   // ! CHECKS FOR AND STORES GEOLOCATION AVAILABLE
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(position => {
-      console.log('Fetching geolocation');
       tempLat = JSON.parse(position.coords.latitude);
       tempLong = JSON.parse(position.coords.longitude);
       lat = tempLat;
