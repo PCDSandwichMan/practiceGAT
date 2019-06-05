@@ -48,6 +48,30 @@ function betterHover() {
 
 // ! API Buttons
 
+// ? Reusable Modal
+// * Modal Vars
+let modal = document.getElementsByClassName('modalMainContainer')[0];
+let weatherModal = document.getElementById('getWeather');
+let closeBtn = document.getElementsByClassName('closeBtn')[0];
+
+// * Modal Listeners
+weatherModal.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('click', outsideClick);
+
+// * Modal Functions
+function openModal() {
+  modal.style.display = 'block';
+}
+function closeModal() {
+  modal.style.display = 'none';
+}
+function outsideClick(e) {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
 // ! Get the weather
 // ? Get the weather
 let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
