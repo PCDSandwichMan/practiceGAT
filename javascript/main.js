@@ -74,39 +74,41 @@ function outsideClick(e) {
 
 // ! Get the weather
 // ? Get the weather
+let isGeolocationEnabled = '';
 let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
 let long = 0;
 let lat = 0;
 let otherQueries = 'units=imperial';
-let weatherApikey = '&APPID='; //TODO - add api key
+let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21'; //TODO - add api key
 
 // ? Helpers for get weather
-// TODO - IT WORKS!!!!!!!!
-function checkGeo() {
-  // ! CHECKS FOR AND STORES GEOLOCATION AVAILABLE
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(position => {
-      tempLat = JSON.parse(position.coords.latitude);
-      tempLong = JSON.parse(position.coords.longitude);
-      lat = tempLat;
-      long = tempLong;
-      console.log(lat, long);
-    });
-    return true;
-  } else {
-    return false;
-  }
+// * gets the lat and long
+function updateCoordinate(callback) {
+  navigator.geolocation.getCurrentPosition(position => {
+    var returnValue = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    };
+    var jsonCookie = returnValue;
+    callback(jsonCookie);
+  });
 }
+// * check if geolocation is disabled
+navigator.permissions.query({ name: 'geolocation' }).then(function(status) {
+  console.log(`Geolocation access has been ${status.state}`);
+  isGeolocationEnabled = status.state;
+});
 
-// ? Click event
+// ? Click Event
 function getWeather() {
-  if (checkGeo()) {
-    checkGeo();
-    console.log('Get geolocation weather has activated');
-    // ! fetches API
-    setTimeout(() => {
+  if (isGeolocationEnabled == 'granted' || isGeolocationEnabled == 'prompt') {
+    updateCoordinate(function(cookie) {
+      console.log(cookie);
+      lat = cookie.latitude;
+      long = cookie.longitude;
+       // * Fetches API Data
       fetch(
-        `${weatherURL}lat=${lat}&lon=${long}&${weatherApikey}&${otherQueries}`
+        `${weatherURL}lat=${lat}&lon=${long}${weatherApikey}&${otherQueries}`
       )
         .then(function(response) {
           return response.json();
@@ -114,8 +116,8 @@ function getWeather() {
         .then(function(myJson) {
           console.log(JSON.stringify(myJson));
         });
-    }, 10000);
+    });
   } else {
-    console.log('Geolocation is not available');
+    console.log('Geolocation is enabled or is not available in your current browser.');
   }
 }

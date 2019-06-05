@@ -161,7 +161,7 @@ aside ul li {
 }
 
 .modalMainContainer {
-  display: block;
+  display: none;
   position: fixed;
   z-index: 10;
   left: 0;
