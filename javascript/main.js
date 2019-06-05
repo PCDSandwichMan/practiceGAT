@@ -50,7 +50,14 @@ function betterHover() {
 
 // ? Reusable Modal
 // * Modal Vars
-let modal = document.getElementsByClassName('modalMainContainer')[0];
+let modalMainContainer = document.getElementsByClassName(
+  'modalMainContainer'
+)[0];
+let modalTitle = document.getElementsByClassName('modalTitle')[0];
+let modalBody = document.getElementsByClassName('modalBody')[0];
+let modalBodyText = document.getElementsByClassName('modalBodyText')[0];
+let modalFooterText = document.getElementsByClassName('modalFooterText')[0];
+
 let weatherModal = document.getElementById('getWeather');
 let closeBtn = document.getElementsByClassName('closeBtn')[0];
 
@@ -61,14 +68,14 @@ window.addEventListener('click', outsideClick);
 
 // * Modal Functions
 function openModal() {
-  modal.style.display = 'block';
+  modalMainContainer.style.display = 'block';
 }
 function closeModal() {
-  modal.style.display = 'none';
+  modalMainContainer.style.display = 'none';
 }
 function outsideClick(e) {
-  if (e.target == modal) {
-    modal.style.display = 'none';
+  if (e.target == modalMainContainer) {
+    modalMainContainer.style.display = 'none';
   }
 }
 
@@ -100,13 +107,17 @@ navigator.permissions.query({ name: 'geolocation' }).then(function(status) {
 });
 
 // ? Click Event
+let geoLocationCity = '';
+let currentTemp = '';
+let weatherDescription = '';
+let iconCode = '';
+let iconUrl = '';
 function getWeather() {
   if (isGeolocationEnabled == 'granted' || isGeolocationEnabled == 'prompt') {
     updateCoordinate(function(cookie) {
-      console.log(cookie);
       lat = cookie.latitude;
       long = cookie.longitude;
-       // * Fetches API Data
+      // * Fetches API Data
       fetch(
         `${weatherURL}lat=${lat}&lon=${long}${weatherApikey}&${otherQueries}`
       )
@@ -114,10 +125,29 @@ function getWeather() {
           return response.json();
         })
         .then(function(myJson) {
-          console.log(JSON.stringify(myJson));
+          geoLocationCity = JSON.stringify(myJson.name);
+          console.log(geoLocationCity);
+          currentTemp = myJson.main.temp;
+          console.log(currentTemp);
+          weatherDescription = myJson.weather[0].description;
+          console.log(weatherDescription);
+          iconCode = myJson.weather[0].icon;
+          iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
+          console.log(iconCode);
+          // ? Display in DOM
+          modalTitle.innerHTML = geoLocationCity
+            .replace('"', '')
+            .replace('"', '');
+          modalBodyText.innerHTML = `The current weather is: ${weatherDescription
+            .charAt(0)
+            .toUpperCase() +
+            weatherDescription.slice(1)} at ${currentTemp} degrees.`;
+          modalFooterText.src = iconUrl;
         });
     });
   } else {
-    console.log('Geolocation is enabled or is not available in your current browser.');
+    console.log(
+      'Geolocation is enabled or is not available in your current browser.'
+    );
   }
 }
