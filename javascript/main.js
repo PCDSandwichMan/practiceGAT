@@ -58,11 +58,18 @@ let modalBody = document.getElementsByClassName('modalBody')[0];
 let modalBodyText = document.getElementsByClassName('modalBodyText')[0];
 let modalFooterText = document.getElementsByClassName('modalFooterText')[0];
 
-let weatherModal = document.getElementById('getWeather');
 let closeBtn = document.getElementsByClassName('closeBtn')[0];
+//! ALL API DATA MODAL CARDS
+let weatherModal = document.getElementById('getWeather');
+let chuckFact = document.getElementById('getChuckFact');
+
+// ! API listeners
+weatherModal.addEventListener('click', getWeather);
+chuckFact.addEventListener('click', getChuckFact);
+
+
 
 // * Modal Listeners
-weatherModal.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
 
@@ -143,6 +150,7 @@ function getWeather() {
             .toUpperCase() +
             weatherDescription.slice(1)} at ${currentTemp} degrees.`;
           modalFooterText.src = iconUrl;
+          openModal();
         });
     });
   } else {
@@ -151,3 +159,43 @@ function getWeather() {
     );
   }
 }
+
+//! Chuck Norris Facts API
+const chuckFactUrl = 'https://api.chucknorris.io/jokes/random';
+
+// * Fetches for random chuck fact
+function getChuckFact() {
+  fetch(chuckFactUrl)
+    .then(
+      response => {
+        if (response.ok) {
+          return response.json();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    )
+    .then(jsonResponse => {
+      const chuckIcon = jsonResponse.icon_url;
+      const chuckFact = jsonResponse.value;
+
+      modalTitle.innerHTML = "Chuck Fact";
+      modalBodyText.innerHTML = chuckFact;
+      modalFooterText.src = chuckIcon;
+      openModal();
+    });
+};
+
+// ! Number Facts API
+let userNumber;
+
+// ? get the value from the SEARCH TAG YOU NEED TO MAKE
+function getUserNumber() {
+
+};
+
+fetch(`http://numbersapi.com/${userNumber}`)
+.then((response) => {
+    console.log(response);
+});
