@@ -199,6 +199,30 @@ aside ul li {
   color: rgba(22, 22, 22, 0.9);
 }
 
+.modalMainContainer .modalContentContainer .modalBody input {
+  display: none;
+  height: 12vh;
+  width: 100%;
+  font-size: 3.5rem;
+  background-color: #c8ccd1;
+}
+
+.modalMainContainer .modalContentContainer .modalBody input::-webkit-input-placeholder {
+  color: #a2a9b1;
+}
+
+.modalMainContainer .modalContentContainer .modalBody input:-ms-input-placeholder {
+  color: #a2a9b1;
+}
+
+.modalMainContainer .modalContentContainer .modalBody input::-ms-input-placeholder {
+  color: #a2a9b1;
+}
+
+.modalMainContainer .modalContentContainer .modalBody input::placeholder {
+  color: #a2a9b1;
+}
+
 .modalMainContainer .modalContentContainer .modalFooter {
   background-color: #5580AA;
   color: #f4f4f4;

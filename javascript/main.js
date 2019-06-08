@@ -62,11 +62,15 @@ let closeBtn = document.getElementsByClassName('closeBtn')[0];
 //! ALL API DATA MODAL CARDS
 let weatherModal = document.getElementById('getWeather');
 let chuckFact = document.getElementById('getChuckFact');
+let numberFact = document.getElementById('getNumberFact');
+let nasaInfo = document.getElementById('getNasaInfo');
+
 
 // ! API listeners
 weatherModal.addEventListener('click', getWeather);
 chuckFact.addEventListener('click', getChuckFact);
-
+numberFact.addEventListener('click', getUserNumber);
+nasaInfo.addEventListener('click', getNasaInfo);
 
 
 // * Modal Listeners
@@ -109,7 +113,7 @@ function updateCoordinate(callback) {
 }
 // * check if geolocation is disabled
 navigator.permissions.query({ name: 'geolocation' }).then(function(status) {
-  console.log(`Geolocation access has been ${status.state}`);
+  //   console.log(`Geolocation access has been ${status.state}`);
   isGeolocationEnabled = status.state;
 });
 
@@ -133,14 +137,14 @@ function getWeather() {
         })
         .then(function(myJson) {
           geoLocationCity = JSON.stringify(myJson.name);
-          console.log(geoLocationCity);
+          //   console.log(geoLocationCity);
           currentTemp = myJson.main.temp;
-          console.log(currentTemp);
+          //   console.log(currentTemp);
           weatherDescription = myJson.weather[0].description;
-          console.log(weatherDescription);
+          //   console.log(weatherDescription);
           iconCode = myJson.weather[0].icon;
           iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
-          console.log(iconCode);
+          //   console.log(iconCode);
           // ? Display in DOM
           modalTitle.innerHTML = geoLocationCity
             .replace('"', '')
@@ -154,7 +158,7 @@ function getWeather() {
         });
     });
   } else {
-    console.log(
+    alert(
       'Geolocation is enabled or is not available in your current browser.'
     );
   }
@@ -173,6 +177,7 @@ function getChuckFact() {
         }
       },
       error => {
+        alert('Bad stuff happened and something broke');
         console.log(error);
       }
     )
@@ -180,22 +185,61 @@ function getChuckFact() {
       const chuckIcon = jsonResponse.icon_url;
       const chuckFact = jsonResponse.value;
 
-      modalTitle.innerHTML = "Chuck Fact";
+      modalTitle.innerHTML = 'Chuck Fact';
       modalBodyText.innerHTML = chuckFact;
       modalFooterText.src = chuckIcon;
       openModal();
     });
-};
+}
 
 // ! Number Facts API
+const inputFeild = document.getElementById('numbersInput');
 let userNumber;
+function showNumber(str) {
+  //*callback for the fact fetch
+  modalBodyText.innerText = str;
+  modalBodyText.style.display = 'block';
+}
 
 // ? get the value from the SEARCH TAG YOU NEED TO MAKE
 function getUserNumber() {
+  modalTitle.innerHTML = "What number's fact would you like?";
 
-};
+  // * Displays and resets input and hide old body
+  inputFeild.value = '';
+  inputFeild.style.display = 'block';
+  modalBodyText.style.display = 'none';
+  // * Styling for the input field
+  modalFooterText.src = 'images/questionMarkFire.ico';
+  modalFooterText.style = 'height: 10%; width: 10%';
 
-fetch(`http://numbersapi.com/${userNumber}`)
-.then((response) => {
-    console.log(response);
-});
+  openModal();
+
+  inputFeild.addEventListener('keypress', function(e) {
+    const inputVal = inputFeild.value;
+    const key = e.which || e.keyCode;
+    if (key === 13) {
+      //*check for enter key
+      if (isNaN(inputVal)) {
+        //* Number input check
+        alert("INPUT MUST BE ALL NUMBERS! DON'T BREAK THE MATRIX NEO!");
+        return false;
+      }
+      inputFeild.style.display = 'none'; // *hides input field
+
+      //* fetches number fact and displays to modal
+
+      (function() {
+        var scriptTag = document.createElement('script');
+        scriptTag.async = true;
+        scriptTag.src = `http://numbersapi.com/${inputVal}/math?callback=showNumber`;
+        document.body.appendChild(scriptTag);
+      })();
+    }
+  });
+}
+
+//! Nasa APOD (daily picture) API
+function getNasaInfo() {
+    console.log('activated')
+}

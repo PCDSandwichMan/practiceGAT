@@ -105,6 +105,17 @@ aside {
       padding: 4vw 4vw;
       font-size: 1.5rem;
       color: rgba(22, 22, 22, .9);
+      input {
+        display: none;
+        height: 12vh;
+        width: 100%;
+        font-size: 3.5rem;
+        background-color: #c8ccd1;
+        &::placeholder{
+        color: #a2a9b1;
+        }
+
+      }
     }
     .modalFooter {
       background-color: $modalHeaderColor;
