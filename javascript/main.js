@@ -55,23 +55,35 @@ let modalMainContainer = document.getElementsByClassName(
 )[0];
 let modalTitle = document.getElementsByClassName('modalTitle')[0];
 let modalBody = document.getElementsByClassName('modalBody')[0];
+let modalBodyImage = document.getElementsByClassName('modalBodyImage')[0];
 let modalBodyText = document.getElementsByClassName('modalBodyText')[0];
+let numbersInput = document.getElementById('numbersInput');
 let modalFooterText = document.getElementsByClassName('modalFooterText')[0];
+let modalFooterImage = document.getElementsByClassName('modalFooterImage')[0];
 
 let closeBtn = document.getElementsByClassName('closeBtn')[0];
+
+// ! Multi-use Modal Full Reset
+function resetModal() {
+  modalTitle.innerHTML = '';
+  modalBodyImage.src = '';
+  modalBodyText.innerHTML = '';
+  modalFooterImage.style.display = 'none';
+  modalFooterText.innerHTML = '';
+  numbersInput.style.display = 'none';
+};
+
 //! ALL API DATA MODAL CARDS
 let weatherModal = document.getElementById('getWeather');
 let chuckFact = document.getElementById('getChuckFact');
 let numberFact = document.getElementById('getNumberFact');
 let nasaInfo = document.getElementById('getNasaInfo');
 
-
 // ! API listeners
 weatherModal.addEventListener('click', getWeather);
 chuckFact.addEventListener('click', getChuckFact);
 numberFact.addEventListener('click', getUserNumber);
 nasaInfo.addEventListener('click', getNasaInfo);
-
 
 // * Modal Listeners
 closeBtn.addEventListener('click', closeModal);
@@ -80,13 +92,16 @@ window.addEventListener('click', outsideClick);
 // * Modal Functions
 function openModal() {
   modalMainContainer.style.display = 'block';
+  modalBodyImage.style.display = 'none';
 }
 function closeModal() {
   modalMainContainer.style.display = 'none';
+  resetModal();
 }
 function outsideClick(e) {
   if (e.target == modalMainContainer) {
     modalMainContainer.style.display = 'none';
+    resetModal();
   }
 }
 
@@ -153,7 +168,9 @@ function getWeather() {
             .charAt(0)
             .toUpperCase() +
             weatherDescription.slice(1)} at ${currentTemp} degrees.`;
-          modalFooterText.src = iconUrl;
+            modalBodyText.style.display = 'block';
+          modalFooterImage.src = iconUrl;
+          modalFooterImage.style.display = 'block';
           openModal();
         });
     });
@@ -187,7 +204,9 @@ function getChuckFact() {
 
       modalTitle.innerHTML = 'Chuck Fact';
       modalBodyText.innerHTML = chuckFact;
-      modalFooterText.src = chuckIcon;
+      modalBodyText.style.display = 'block';
+      modalFooterImage.src = chuckIcon;
+      modalFooterImage.style.display = 'block';
       openModal();
     });
 }
@@ -210,8 +229,9 @@ function getUserNumber() {
   inputFeild.style.display = 'block';
   modalBodyText.style.display = 'none';
   // * Styling for the input field
-  modalFooterText.src = 'images/questionMarkFire.ico';
-  modalFooterText.style = 'height: 10%; width: 10%';
+  modalFooterImage.style.display = 'block';
+  modalFooterImage.src = '../images/questionMarkFire.ico';
+  modalFooterImage.style = 'height: 10%; width: 10%';
 
   openModal();
 
@@ -240,6 +260,32 @@ function getUserNumber() {
 }
 
 //! Nasa APOD (daily picture) API
+apodUrl = 'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True';
+
+//* fetches the APOD from the NASA API
 function getNasaInfo() {
-    console.log('activated')
+  fetch(apodUrl).then(
+    response => {
+      if (response.ok) {
+        return response.json();
+      }
+    },
+    networkError => {
+      alert('Bad stuff happened and something broke');
+      console.log(networkError);
+    }
+  )
+  .then(jsonResponse => {
+    modalTitle.innerHTML = jsonResponse.title;
+    modalBodyText.innerHTML = jsonResponse.explanation;
+    modalBodyText.style.display = 'block';
+    modalBodyImage.src = jsonResponse.url;
+    modalBodyImage.style.display = 'block';
+    modalFooterText.innerHTML = `&copy ${jsonResponse.copyright}`;
+
+    openModal();
+    modalBodyImage.style.display = 'block';//*counters reset
+  })
 }
+
+// ! Transform/Transition/Keyframe buttons

@@ -190,6 +190,7 @@ aside ul li {
   background-color: #5580AA;
   color: #f4f4f4;
   font-size: 2.6rem;
+  text-align: center;
 }
 
 .modalMainContainer .modalContentContainer .modalBody {
@@ -197,6 +198,20 @@ aside ul li {
   padding: 4vw 4vw;
   font-size: 1.5rem;
   color: rgba(22, 22, 22, 0.9);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
 }
 
 .modalMainContainer .modalContentContainer .modalBody input {
@@ -223,12 +238,27 @@ aside ul li {
   color: #a2a9b1;
 }
 
+.modalMainContainer .modalContentContainer .modalBodyImage {
+  width: 90%;
+  padding: 2vw;
+  display: none;
+}
+
 .modalMainContainer .modalContentContainer .modalFooter {
   background-color: #5580AA;
   color: #f4f4f4;
   font-size: 1.2rem;
   padding: 1vw;
-  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2vw;
 }
 
 .modalMainContainer .modalContentContainer .closeBtn {

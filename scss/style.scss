@@ -99,12 +99,18 @@ aside {
       background-color: $modalHeaderColor;
       color: #f4f4f4;
       font-size: 2.6rem;
+      text-align: center;
     }
     .modalBody {
       color: #2e3a56;
       padding: 4vw 4vw;
       font-size: 1.5rem;
       color: rgba(22, 22, 22, .9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       input {
         display: none;
         height: 12vh;
@@ -117,12 +123,20 @@ aside {
 
       }
     }
+    .modalBodyImage {
+      width: 90%;
+      padding: 2vw;
+      display: none;
+    }
     .modalFooter {
       background-color: $modalHeaderColor;
       color: #f4f4f4;
       font-size: 1.2rem;
       padding: 1vw;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2vw;
     }
     .closeBtn {
       float: right;
