@@ -19,7 +19,7 @@ function changeTextColor() {
   let textTags = document.getElementsByClassName('card');
 
   for (i = 0; i < textTags.length; ++i) {
-    if (textTags[i].style.textShadow == 'none') {
+    if (textTags[i].style.textShadow == 'none' || textTags[i].style.textShadow == '') {
       textTags[i].style.textShadow = neonShadow;
     } else {
       textTags[i].style.textShadow = 'none';
