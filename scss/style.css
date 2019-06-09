@@ -261,6 +261,27 @@ aside ul li {
   padding: 2vw;
 }
 
+.modalMainContainer .modalContentContainer .modalButton {
+  display: none;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.856);
+  border-radius: 5%;
+  padding: 1vw 1.5vw;
+  color: #f4f4f4;
+  font-size: 1rem;
+  outline: none;
+  -webkit-box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.507);
+          box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.507);
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.modalMainContainer .modalContentContainer .modalButton:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+  background-color: black;
+}
+
 .modalMainContainer .modalContentContainer .closeBtn {
   float: right;
   font-size: 2rem;

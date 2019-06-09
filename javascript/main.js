@@ -19,7 +19,10 @@ function changeTextColor() {
   let textTags = document.getElementsByClassName('card');
 
   for (i = 0; i < textTags.length; ++i) {
-    if (textTags[i].style.textShadow == 'none' || textTags[i].style.textShadow == '') {
+    if (
+      textTags[i].style.textShadow == 'none' ||
+      textTags[i].style.textShadow == ''
+    ) {
       textTags[i].style.textShadow = neonShadow;
     } else {
       textTags[i].style.textShadow = 'none';
@@ -58,8 +61,10 @@ let modalBody = document.getElementsByClassName('modalBody')[0];
 let modalBodyImage = document.getElementsByClassName('modalBodyImage')[0];
 let modalBodyText = document.getElementsByClassName('modalBodyText')[0];
 let numbersInput = document.getElementById('numbersInput');
+let modalFooter = document.getElementsByClassName('modalFooter')[0];
 let modalFooterText = document.getElementsByClassName('modalFooterText')[0];
 let modalFooterImage = document.getElementsByClassName('modalFooterImage')[0];
+let modalButton = document.getElementsByClassName('modalButton')[0];
 
 let closeBtn = document.getElementsByClassName('closeBtn')[0];
 
@@ -71,7 +76,8 @@ function resetModal() {
   modalFooterImage.style.display = 'none';
   modalFooterText.innerHTML = '';
   numbersInput.style.display = 'none';
-};
+  modalButton.style.display = 'none';
+}
 
 //! ALL API DATA MODAL CARDS
 let weatherModal = document.getElementById('getWeather');
@@ -168,7 +174,7 @@ function getWeather() {
             .charAt(0)
             .toUpperCase() +
             weatherDescription.slice(1)} at ${currentTemp} degrees.`;
-            modalBodyText.style.display = 'block';
+          modalBodyText.style.display = 'block';
           modalFooterImage.src = iconUrl;
           modalFooterImage.style.display = 'block';
           openModal();
@@ -230,7 +236,7 @@ function getUserNumber() {
   modalBodyText.style.display = 'none';
   // * Styling for the input field
   modalFooterImage.style.display = 'block';
-  modalFooterImage.src = '../images/questionMarkFire.ico';
+  modalFooterImage.src = 'images/questionMarkFire.ico';
   modalFooterImage.style = 'height: 10%; width: 10%';
 
   openModal();
@@ -260,32 +266,74 @@ function getUserNumber() {
 }
 
 //! Nasa APOD (daily picture) API
-apodUrl = 'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True';
+apodUrl =
+  'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True';
 
 //* fetches the APOD from the NASA API
 function getNasaInfo() {
-  fetch(apodUrl).then(
-    response => {
-      if (response.ok) {
-        return response.json();
+  fetch(apodUrl)
+    .then(
+      response => {
+        if (response.ok) {
+          return response.json();
+        }
+      },
+      networkError => {
+        alert('Bad stuff happened and something broke');
+        console.log(networkError);
       }
-    },
-    networkError => {
-      alert('Bad stuff happened and something broke');
-      console.log(networkError);
-    }
-  )
-  .then(jsonResponse => {
-    modalTitle.innerHTML = jsonResponse.title;
-    modalBodyText.innerHTML = jsonResponse.explanation;
-    modalBodyText.style.display = 'block';
-    modalBodyImage.src = jsonResponse.url;
-    modalBodyImage.style.display = 'block';
-    modalFooterText.innerHTML = `&copy ${jsonResponse.copyright}`;
+    )
+    .then(jsonResponse => {
+      modalTitle.innerHTML = jsonResponse.title;
+      modalBodyText.innerHTML = jsonResponse.explanation;
+      modalBodyText.style.display = 'block';
+      modalBodyImage.src = jsonResponse.url;
+      modalBodyImage.style.display = 'block';
+      modalFooterText.innerHTML = `&copy ${jsonResponse.copyright}`;
 
-    openModal();
-    modalBodyImage.style.display = 'block';//*counters reset
-  })
+      openModal();
+      modalBodyImage.style.display = 'block'; //*counters reset
+    });
 }
 
-// ! Transform/Transition/Keyframe buttons
+// ! Transform/Transition/Keyframe Buttons
+
+// ? Main Variables
+const speechReader = document.getElementById('speechReader');
+
+// ? Button Event Listeners
+speechReader.addEventListener('click', speechReaderActivate);
+
+// ? SpeechRecognition Button
+let voiceTranscript = 'you cant make me';
+
+function speechReaderActivate() {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+
+  recognition.start();
+  modalTitle.innerHTML = 'Tell Me A Story';
+  modalBodyText.innerHTML = '(Start Speaking)';
+  openModal();
+
+  recognition.onresult = function(event) {
+    const current = event.resultIndex;
+    const voiceTranscript = event.results[current][0].transcript;
+    console.log(voiceTranscript);
+    // * Puts speech to text on modal and displays
+    modalBodyText.innerHTML = voiceTranscript;
+    modalButton.style.display = 'block';
+    openModal();
+  };
+}
+
+//*reads the script
+const readText = () => {
+  const speech = new SpeechSynthesisUtterance();
+  speech.volume = 0.3;
+  speech.rate = 1;
+  speech.pitch = 1;
+  speech.text = modalBodyText.innerHTML;
+  window.speechSynthesis.speak(speech);
+};
