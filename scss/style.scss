@@ -28,16 +28,14 @@ body {
 
 .fullPage {
   display: grid;
-  grid-template: repeat(7, 1fr) / repeat(5, 1fr);
+  grid-template: .5fr repeat(3, 1fr) / repeat(5, 1fr);
   grid-template-areas:
     'head head head head head'
     'side main   main   main   main'
     'side main   main   main   main'
-    'side main   main   main   main'
-    'side main   main   main   main'
-    'side main   main   main   main'
     'side main   main   main   main';
 }
+
 
 // ! Header
 header {
@@ -59,18 +57,32 @@ aside {
   grid-area: side;
   background-color: $outerTextColor;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   h2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1vw 0vw;
-    font-size: 1.8rem;
+    text-align: center;
+    padding: .5vw 0vw;
+    margin: 0px 1vw;
+    font-size: 1.7rem;
+    text-align: center;
+    border-bottom: double .3vw $outlineText;
   }
   ul {
     list-style: none;
     li {
-      padding: 0.5vw 1vw;
+      padding: 2vw 2vw;
+      margin: 1vw 1vw;
+      font-size: 1.1rem;
       color: $outlineText;
+      background-color: rgba(211, 80, 32, 0.562);
+      border-radius: 10%;
+      text-align: center;
+      transition: transform 400ms;
+      &:hover {
+        background-color: $cardBackgroundHover;
+        cursor: pointer;
+        transform: scale(1.04)
+      }
     }
   }
 }
@@ -183,6 +195,7 @@ main {
   padding: 2vw;
   grid-gap: 2vw;
   grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+  transition: transform 1000ms;
   .card {
     @extend %flexCompleteCenter;
     background-color: $cardBackground;
@@ -190,6 +203,7 @@ main {
     height: 10rem;
     border-radius: 10px;
     box-shadow: 1px 2px 5px #000;
+    transition: transform 500ms;
     a {
       @extend %flexCompleteCenter;
       font-size: 1.5rem;
@@ -198,9 +212,18 @@ main {
     &:hover {
       background-color: $cardBackgroundHover;
       cursor: pointer;
+      // transform: scale(1.07);
     }
     &:active {
       transform: scale(1.04);
     }
+  }
+}
+
+
+.lightsOff {
+  * {
+    opacity: !important 0;
+    background-color: black;
   }
 }

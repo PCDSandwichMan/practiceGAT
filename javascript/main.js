@@ -40,7 +40,6 @@ function removeCSS() {
 }
 
 // ? Better Hover Effects
-// TODO finish this my dude
 function betterHover() {
   let textTags = document.getElementsByClassName('card');
 
@@ -300,13 +299,19 @@ function getNasaInfo() {
 
 // ? Main Variables
 const speechReader = document.getElementById('speechReader');
+const barrelRoll = document.getElementById('barrelRoll');
+const lightsOff = document.getElementById('lightsOff');
+const killButtons = document.getElementById('killButtons');
+const fullPage = document.getElementsByClassName('fullPage')[0];
+const headerTag = document.getElementsByTagName('header')[0];
 
 // ? Button Event Listeners
 speechReader.addEventListener('click', speechReaderActivate);
+barrelRoll.addEventListener('click', doBarrelRoll);
+lightsOff.addEventListener('click', turnLightsOff);
+killButtons.addEventListener('click', killButtonsAnimation);
 
 // ? SpeechRecognition Button
-let voiceTranscript = 'you cant make me';
-
 function speechReaderActivate() {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -337,3 +342,100 @@ const readText = () => {
   speech.text = modalBodyText.innerHTML;
   window.speechSynthesis.speak(speech);
 };
+
+//? Do a Barrel Roll button
+function doBarrelRoll() {
+  const allCards = document.getElementsByClassName('card');
+
+  for (i = 0; i < allCards.length; ++i) {
+    allCards[i].classList.toggle('rotated');
+  }
+}
+
+//? Controls lights of buttons
+function turnLightsOff() {
+  document.querySelector('*').classList.toggle('dimScreen');
+}
+
+// ? Controls grid layout rearrange
+function killButtonsAnimation() {
+  const allCards = document.getElementsByClassName('card');
+  // * Causes all cards to fall off screen
+  for (i = 0; i < allCards.length; ++i) {
+    window.setTimeout(() => console.log('waiting'), 2000);
+    allCards[i].classList.add('killButtons');
+  }
+  // * Restores buttons for user after delay
+  window.setTimeout(() => {
+    alert(
+      'Thanks for playing! (the buttons will come back shortly if your wish to continue playing)'
+    );
+  }, 2000);
+  console.log('before');
+  window.setTimeout(() => {
+    console.log('during');
+
+    for (i = 0; i < allCards.length; ++i) {
+      allCards[i].classList.remove('killButtons');
+    }
+  }, 15000);
+}
+
+//! Nav Bar Functionality
+// * Variables for nav items
+const apiNav = document.getElementById('apiNav');
+const ttNav = document.getElementById('ttNav');
+const jSNav = document.getElementById('jSNav');
+const cssNav = document.getElementById('cssNav');
+const dontNav = document.getElementById('dontNav');
+
+//* Card Class Identifiers
+const cssEffect = document.getElementsByClassName('cssEffect');
+const ttEffect = document.getElementsByClassName('ttEffect');
+const jSEffect = document.getElementsByClassName('jSEffect');
+const apiEffect = document.getElementsByClassName('apiEffect');
+
+// * Event listeners for nav highlight
+apiNav.addEventListener('click', buttonGlowSelector);
+ttNav.addEventListener('click', buttonGlowSelector);
+jSNav.addEventListener('click', buttonGlowSelector);
+cssNav.addEventListener('click', buttonGlowSelector);
+dontNav.addEventListener('click', buttonGlowSelector);
+
+
+// ? Button Glowing effect when nav click
+function buttonGlowAdd(btn) {
+  const allCards = document.getElementsByClassName('card');
+  console.log(btn[0].classList.value);
+  if (!btn[0].classList.value.includes('buttonGlow')){
+    for (i = 0; i < allCards.length; ++i) {
+      allCards[i].classList.remove('buttonGlow');
+    }
+  }
+    for (i = 0; i < btn.length; ++i) {
+      btn[i].classList.toggle('buttonGlow');
+  }
+}
+
+function buttonGlowSelector(e) {
+  console.log(e.target.id);
+  //TODO add remove class edge case before function call
+  switch (e.target.id) {
+    case 'apiNav':
+      buttonGlowAdd(apiEffect);
+      break;
+    case 'ttNav':
+      buttonGlowAdd(ttEffect);
+      break;
+    case 'jSNav':
+      buttonGlowAdd(jSEffect);
+      break;
+    case 'cssNav':
+      buttonGlowAdd(cssEffect);
+      break;
+    case 'dontNav':
+      //TODO Finish this button
+      alert('Boo! (See now you will be scared for the whole day.... I told you not to press it.....');
+      break;
+  }
+}

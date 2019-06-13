@@ -80,6 +80,36 @@ header, .boxes .card, .boxes .card a {
           animation: animate 5s linear infinite;
 }
 
+.rotated {
+  /* IE 9 */
+  -webkit-transform: rotate(360deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(360deg);
+}
+
+.dimScreen * {
+  -webkit-filter: brightness(0%);
+          filter: brightness(0%);
+}
+
+.dimScreen body {
+  background: -webkit-gradient(linear, left top, left bottom, from(#000000c9), to(#000000c9)), url(../images/cityNight.jpg) no-repeat center center fixed;
+  background: linear-gradient(#000000c9, #000000c9), url(../images/cityNight.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: #e2dddde3;
+}
+
+.killButtons {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+div.card.buttonGlow {
+  -webkit-box-shadow: 0 0 10px #fff, -10px 0 40px #f0f, 10px 0 40px #0ff;
+          box-shadow: 0 0 10px #fff, -10px 0 40px #f0f, 10px 0 40px #0ff;
+  /* outer right cyan */
+}
+
 html {
   font-size: 16px;
   font-family: Helvetica, Arial, sans-serif;
@@ -103,10 +133,10 @@ body {
 .fullPage {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: (1fr)[7];
+  -ms-grid-rows: 0.5fr (1fr)[3];
   -ms-grid-columns: (1fr)[5];
-      grid-template: repeat(7, 1fr)/repeat(5, 1fr);
-      grid-template-areas: 'head head head head head' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main';
+      grid-template: 0.5fr repeat(3, 1fr)/repeat(5, 1fr);
+      grid-template-areas: 'head head head head head' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main';
 }
 
 header {
@@ -129,14 +159,11 @@ header h4 {
 
 aside {
   -ms-grid-row: 2;
-  -ms-grid-row-span: 6;
+  -ms-grid-row-span: 3;
   -ms-grid-column: 1;
   grid-area: side;
   background-color: #0000007c;
   height: 100vh;
-}
-
-aside h2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -144,11 +171,15 @@ aside h2 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1vw 0vw;
-  font-size: 1.8rem;
+}
+
+aside h2 {
+  text-align: center;
+  padding: .5vw 0vw;
+  margin: 0px 1vw;
+  font-size: 1.7rem;
+  text-align: center;
+  border-bottom: double 0.3vw #e2dddde3;
 }
 
 aside ul {
@@ -156,8 +187,24 @@ aside ul {
 }
 
 aside ul li {
-  padding: 0.5vw 1vw;
+  padding: 2vw 2vw;
+  margin: 1vw 1vw;
+  font-size: 1.1rem;
   color: #e2dddde3;
+  background-color: rgba(211, 80, 32, 0.562);
+  border-radius: 10%;
+  text-align: center;
+  -webkit-transition: -webkit-transform 400ms;
+  transition: -webkit-transform 400ms;
+  transition: transform 400ms;
+  transition: transform 400ms, -webkit-transform 400ms;
+}
+
+aside ul li:hover {
+  background-color: #dc143c57;
+  cursor: pointer;
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
 }
 
 .modalMainContainer {
@@ -314,7 +361,7 @@ aside ul li {
 
 main {
   -ms-grid-row: 2;
-  -ms-grid-row-span: 6;
+  -ms-grid-row-span: 3;
   -ms-grid-column: 2;
   -ms-grid-column-span: 4;
   grid-area: main;
@@ -331,6 +378,10 @@ main {
   -ms-grid-rows: (1fr)[3];
   -ms-grid-columns: (1fr)[4];
       grid-template: repeat(3, 1fr)/repeat(4, 1fr);
+  -webkit-transition: -webkit-transform 1000ms;
+  transition: -webkit-transform 1000ms;
+  transition: transform 1000ms;
+  transition: transform 1000ms, -webkit-transform 1000ms;
 }
 
 .boxes .card {
@@ -340,6 +391,10 @@ main {
   border-radius: 10px;
   -webkit-box-shadow: 1px 2px 5px #000;
           box-shadow: 1px 2px 5px #000;
+  -webkit-transition: -webkit-transform 500ms;
+  transition: -webkit-transform 500ms;
+  transition: transform 500ms;
+  transition: transform 500ms, -webkit-transform 500ms;
 }
 
 .boxes .card a {
@@ -355,5 +410,10 @@ main {
 .boxes .card:active {
   -webkit-transform: scale(1.04);
           transform: scale(1.04);
+}
+
+.lightsOff * {
+  opacity: !important 0;
+  background-color: black;
 }
 /*# sourceMappingURL=style.css.map */
