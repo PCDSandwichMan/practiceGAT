@@ -28,7 +28,7 @@ body {
 
 .fullPage {
   display: grid;
-  grid-template: .5fr repeat(3, 1fr) / repeat(5, 1fr);
+  grid-template: 0.5fr repeat(3, 1fr) / repeat(5, 1fr);
   grid-template-areas:
     'head head head head head'
     'side main   main   main   main'
@@ -36,18 +36,17 @@ body {
     'side main   main   main   main';
 }
 
-
 // ! Header
 header {
   grid-area: head;
   @extend %flexCompleteCenter;
   background-color: $outerTextColor;
   h1 {
-    font-size: 4rem;
+    font-size: 6rem;
     color: $outlineText;
   }
   h4 {
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding-bottom: 1vh;
   }
 }
@@ -56,16 +55,15 @@ header {
 aside {
   grid-area: side;
   background-color: $outerTextColor;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   h2 {
     text-align: center;
-    padding: .5vw 0vw;
+    padding: 0.5vw 0vw;
     margin: 0px 1vw;
     font-size: 1.7rem;
     text-align: center;
-    border-bottom: double .3vw $outlineText;
+    border-bottom: double 0.3vw $outlineText;
   }
   ul {
     list-style: none;
@@ -81,14 +79,53 @@ aside {
       &:hover {
         background-color: $cardBackgroundHover;
         cursor: pointer;
-        transform: scale(1.04)
+        transform: scale(1.04);
       }
     }
   }
 }
 
+// ! Main Boxes
+main {
+  grid-area: main;
+}
+
+.boxes {
+  display: grid;
+  align-items: stretch;
+  padding: 2vw;
+  grid-gap: 2vw;
+  grid-template: repeat(5, minmax(12vw, 1fr)) / repeat(
+      auto-fit,
+      minmax(18vw, 1fr)
+    );
+  transition: transform 1000ms;
+  .card {
+    @extend %flexCompleteCenter;
+    background-color: $cardBackground;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px #000;
+    transition: transform 500ms;
+    a {
+      @extend %flexCompleteCenter;
+      font-size: 1.5rem;
+      text-transform: capitalize;
+    }
+    &:hover {
+      background-color: $cardBackgroundHover;
+      cursor: pointer;
+      // transform: scale(1.07);
+    }
+    &:active {
+      transform: scale(1.04);
+    }
+  }
+}
+
 // ! Modal
-.modalMainContainer{
+.modalMainContainer {
   display: none;
   position: fixed;
   z-index: 10;
@@ -97,27 +134,27 @@ aside {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: #000;
-  .modalContentContainer{
+  .modalContentContainer {
     background-color: #f4f4f4;
     margin: 20% auto;
     width: 70%;
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
     animation-name: modalOpen;
     animation-duration: 1s;
     .modalHeader {
       padding: 1vw;
       background-color: $modalHeaderColor;
       color: #f4f4f4;
-      font-size: 2.6rem;
+      font-size: 2.3rem;
       text-align: center;
     }
     .modalBody {
       color: #2e3a56;
       padding: 4vw 4vw;
       font-size: 1.5rem;
-      color: rgba(22, 22, 22, .9);
+      color: rgba(22, 22, 22, 0.9);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -129,10 +166,9 @@ aside {
         width: 100%;
         font-size: 3.5rem;
         background-color: #c8ccd1;
-        &::placeholder{
-        color: #a2a9b1;
+        &::placeholder {
+          color: #a2a9b1;
         }
-
       }
     }
     .modalBodyImage {
@@ -163,15 +199,16 @@ aside {
       transition: 300ms;
       &:hover {
         transform: scale(1.04);
-        background-color: rgb(0, 0, 0); 
+        background-color: rgb(0, 0, 0);
       }
     }
     .closeBtn {
       float: right;
       font-size: 2rem;
-      color: rgba(0,0,0,0.3);
-      &:hover,&:focus{
-        color: rgba(0,0,0,0.8);
+      color: rgba(0, 0, 0, 0.3);
+      &:hover,
+      &:focus {
+        color: rgba(0, 0, 0, 0.8);
         cursor: pointer;
         text-decoration: none;
       }
@@ -179,51 +216,47 @@ aside {
   }
 }
 //* Keyframe For Modal
-@keyframes modalOpen{
-  from{opacity: 0}
-  to{opacity: 1;}
-}
-
-// ! Main Boxes
-main {
-  grid-area: main;
-}
-
-.boxes {
-  display: grid;
-  align-items: stretch;
-  padding: 2vw;
-  grid-gap: 2vw;
-  grid-template: repeat(3, 1fr) / repeat(4, 1fr);
-  transition: transform 1000ms;
-  .card {
-    @extend %flexCompleteCenter;
-    background-color: $cardBackground;
-    width: 100%;
-    height: 10rem;
-    border-radius: 10px;
-    box-shadow: 1px 2px 5px #000;
-    transition: transform 500ms;
-    a {
-      @extend %flexCompleteCenter;
-      font-size: 1.5rem;
-      text-transform: capitalize;
-    }
-    &:hover {
-      background-color: $cardBackgroundHover;
-      cursor: pointer;
-      // transform: scale(1.07);
-    }
-    &:active {
-      transform: scale(1.04);
-    }
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
+//! Media Queries
+// ? Galaxy S5
+@media only screen and (max-device-width: 360px) {
+  html {
+    font-size: 5.5px;
+  }
+}
 
-.lightsOff {
-  * {
-    opacity: !important 0;
-    background-color: black;
+// ? Pixel 2
+@media only screen and (min-width: 361px) and (max-device-width: 411px) {
+  html {
+    font-size: 5px;
+  }
+}
+
+// ? Filler Fix
+@media only screen and (min-width: 412px) and (max-device-width: 550px) {
+  html {
+    font-size: 6.3px;
+  }
+}
+
+// ? IPad
+@media only screen and (min-width: 551px) and (max-device-width: 768px) {
+  html {
+    font-size: 8.5px;
+  }
+}
+
+// ? IPad Pro
+@media only screen and (min-width: 769px) and (max-device-width: 1024px) {
+  html {
+    font-size: 11.3px;
   }
 }

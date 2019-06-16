@@ -22,7 +22,7 @@ header, .boxes .card, .boxes .card a {
   -webkit-transform: translate(-0.001%, -0.001%);
           transform: translate(-0.001%, -0.001%);
   width: 100%;
-  height: 10rem;
+  height: 100%;
   text-align: center;
   line-height: 60px;
   background: -webkit-gradient(linear, left top, right top, from(#03a9f4), color-stop(#f441a5), color-stop(#ffeb3b), to(#03a9f4));
@@ -110,6 +110,69 @@ div.card.buttonGlow {
   /* outer right cyan */
 }
 
+.lightsOff * {
+  opacity: !important 0;
+  background-color: black;
+}
+
+.LoaderBalls {
+  margin: 12vh 90px 5vh;
+  width: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.LoaderBalls__item {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00f1ca;
+}
+
+.LoaderBalls__item:nth-child(1) {
+  -webkit-animation: bouncing 0.4s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95);
+          animation: bouncing 0.4s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95);
+}
+
+.LoaderBalls__item:nth-child(2) {
+  -webkit-animation: bouncing 0.4s 0.1s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+          animation: bouncing 0.4s 0.1s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+}
+
+.LoaderBalls__item:nth-child(3) {
+  -webkit-animation: bouncing 0.4s 0.2s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+          animation: bouncing 0.4s 0.2s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+}
+
+@-webkit-keyframes bouncing {
+  0% {
+    -webkit-transform: translate3d(0, 10px, 0) scale(1.2, 0.85);
+            transform: translate3d(0, 10px, 0) scale(1.2, 0.85);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -20px, 0) scale(0.9, 1.1);
+            transform: translate3d(0, -20px, 0) scale(0.9, 1.1);
+  }
+}
+
+@keyframes bouncing {
+  0% {
+    -webkit-transform: translate3d(0, 10px, 0) scale(1.2, 0.85);
+            transform: translate3d(0, 10px, 0) scale(1.2, 0.85);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -20px, 0) scale(0.9, 1.1);
+            transform: translate3d(0, -20px, 0) scale(0.9, 1.1);
+  }
+}
+
 html {
   font-size: 16px;
   font-family: Helvetica, Arial, sans-serif;
@@ -148,12 +211,12 @@ header {
 }
 
 header h1 {
-  font-size: 4rem;
+  font-size: 6rem;
   color: #e2dddde3;
 }
 
 header h4 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding-bottom: 1vh;
 }
 
@@ -163,7 +226,6 @@ aside {
   -ms-grid-column: 1;
   grid-area: side;
   background-color: #0000007c;
-  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -175,7 +237,7 @@ aside {
 
 aside h2 {
   text-align: center;
-  padding: .5vw 0vw;
+  padding: 0.5vw 0vw;
   margin: 0px 1vw;
   font-size: 1.7rem;
   text-align: center;
@@ -203,6 +265,59 @@ aside ul li {
 aside ul li:hover {
   background-color: #dc143c57;
   cursor: pointer;
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
+main {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 4;
+  grid-area: main;
+}
+
+.boxes {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  padding: 2vw;
+  grid-gap: 2vw;
+  -ms-grid-rows: (minmax(12vw, 1fr))[5];
+  -ms-grid-columns: (minmax(18vw, 1fr))[auto-fit];
+      grid-template: repeat(5, minmax(12vw, 1fr))/repeat(auto-fit, minmax(18vw, 1fr));
+  -webkit-transition: -webkit-transform 1000ms;
+  transition: -webkit-transform 1000ms;
+  transition: transform 1000ms;
+  transition: transform 1000ms, -webkit-transform 1000ms;
+}
+
+.boxes .card {
+  background-color: #2e3a56b2;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 2px 5px #000;
+          box-shadow: 1px 2px 5px #000;
+  -webkit-transition: -webkit-transform 500ms;
+  transition: -webkit-transform 500ms;
+  transition: transform 500ms;
+  transition: transform 500ms, -webkit-transform 500ms;
+}
+
+.boxes .card a {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.boxes .card:hover {
+  background-color: #dc143c57;
+  cursor: pointer;
+}
+
+.boxes .card:active {
   -webkit-transform: scale(1.04);
           transform: scale(1.04);
 }
@@ -236,7 +351,7 @@ aside ul li:hover {
   padding: 1vw;
   background-color: #5580AA;
   color: #f4f4f4;
-  font-size: 2.6rem;
+  font-size: 2.3rem;
   text-align: center;
 }
 
@@ -359,61 +474,33 @@ aside ul li:hover {
   }
 }
 
-main {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 4;
-  grid-area: main;
+@media only screen and (max-device-width: 360px) {
+  html {
+    font-size: 5.5px;
+  }
 }
 
-.boxes {
-  display: -ms-grid;
-  display: grid;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  padding: 2vw;
-  grid-gap: 2vw;
-  -ms-grid-rows: (1fr)[3];
-  -ms-grid-columns: (1fr)[4];
-      grid-template: repeat(3, 1fr)/repeat(4, 1fr);
-  -webkit-transition: -webkit-transform 1000ms;
-  transition: -webkit-transform 1000ms;
-  transition: transform 1000ms;
-  transition: transform 1000ms, -webkit-transform 1000ms;
+@media only screen and (min-width: 361px) and (max-device-width: 411px) {
+  html {
+    font-size: 5px;
+  }
 }
 
-.boxes .card {
-  background-color: #2e3a56b2;
-  width: 100%;
-  height: 10rem;
-  border-radius: 10px;
-  -webkit-box-shadow: 1px 2px 5px #000;
-          box-shadow: 1px 2px 5px #000;
-  -webkit-transition: -webkit-transform 500ms;
-  transition: -webkit-transform 500ms;
-  transition: transform 500ms;
-  transition: transform 500ms, -webkit-transform 500ms;
+@media only screen and (min-width: 412px) and (max-device-width: 550px) {
+  html {
+    font-size: 6.3px;
+  }
 }
 
-.boxes .card a {
-  font-size: 1.5rem;
-  text-transform: capitalize;
+@media only screen and (min-width: 551px) and (max-device-width: 768px) {
+  html {
+    font-size: 8.5px;
+  }
 }
 
-.boxes .card:hover {
-  background-color: #dc143c57;
-  cursor: pointer;
-}
-
-.boxes .card:active {
-  -webkit-transform: scale(1.04);
-          transform: scale(1.04);
-}
-
-.lightsOff * {
-  opacity: !important 0;
-  background-color: black;
+@media only screen and (min-width: 769px) and (max-device-width: 1024px) {
+  html {
+    font-size: 11.3px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

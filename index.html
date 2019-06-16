@@ -17,11 +17,11 @@
       <aside>
         <h2>Find Your Buttons</h2>
         <ul>
-          <li id='apiNav'>API Fetching</li>
-          <li id='ttNav'>Transform/Transition</li>
-          <li id='jSNav'>JavaScript Things</li>
-          <li id='cssNav'>CSS Things</li>
-          <li id='dontNav'>Don't Do It.....Trust Me....</li>
+          <li id="apiNav">API Fetching</li>
+          <li id="ttNav">Transform/Transition</li>
+          <li id="jSNav">JavaScript Things</li>
+          <li id="cssNav">CSS Things</li>
+          <li id="dontNav">Don't Do It.....Trust Me....</li>
         </ul>
       </aside>
       <!-- ! Multi Use Modal For API Display -->
@@ -29,19 +29,32 @@
         <div class="modalContentContainer">
           <div class="modalHeader">
             <span class="closeBtn">&times;</span>
-            <h2 class="modalTitle">Uh-oh</h2>
+            <h2 class="modalTitle">Be Right Back</h2>
           </div>
           <div class="modalBody">
-            <img class="modalBodyImage" src="">
+            <img class="modalBodyImage" src="" />
             <h4 class="modalBodyText">
-              Something went wrong, please select your button again.
+              Grabbing Your Button Information
             </h4>
-            <input type="text" id="numbersInput" placeholder="Enter your number">
+            <!-- ! Loading Icon Below -->
+            <div class="LoaderBalls">
+                <div class="LoaderBalls__item"></div>
+                <div class="LoaderBalls__item"></div>
+                <div class="LoaderBalls__item"></div>
+              </div>
+              <!-- ! Loading Icon Below -->
+            <input
+              type="text"
+              id="numbersInput"
+              placeholder="Enter your number"
+            />
           </div>
           <div class="modalFooter">
             <img class="modalFooterImage" src="" />
             <h5 class="modalFooterText"></h5>
-            <button class="modalButton" onClick='readText()'>Read Your Text Aloud</button>
+            <button class="modalButton" onClick="readText()">
+              Read Your Text Aloud
+            </button>
           </div>
         </div>
       </div>
@@ -57,7 +70,11 @@
               Change Background
             </a>
           </div>
-          <div class="card cssEffect" id="changeTextColor" onClick="changeTextColor()">
+          <div
+            class="card cssEffect"
+            id="changeTextColor"
+            onClick="changeTextColor()"
+          >
             <a>
               Toggle Button Color
             </a>
@@ -92,7 +109,7 @@
               NASA's Daily Picture
             </a>
           </div>
-          <div class="card jSEffect" id='speechReader'>
+          <div class="card jSEffect" id="speechReader">
             <a>
               Voice to text
             </a>
@@ -107,7 +124,7 @@
               Lights Off
             </a>
           </div>
-          <div class="card ttEffect" id='killButtons'>
+          <div class="card ttEffect" id="killButtons">
             <a>
               ...End this madness...
             </a>

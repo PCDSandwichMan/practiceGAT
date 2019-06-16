@@ -56,6 +56,7 @@ let modalMainContainer = document.getElementsByClassName(
   'modalMainContainer'
 )[0];
 let modalTitle = document.getElementsByClassName('modalTitle')[0];
+let modalLoad = document.getElementsByClassName('LoaderBalls')[0];
 let modalBody = document.getElementsByClassName('modalBody')[0];
 let modalBodyImage = document.getElementsByClassName('modalBodyImage')[0];
 let modalBodyText = document.getElementsByClassName('modalBodyText')[0];
@@ -98,6 +99,9 @@ window.addEventListener('click', outsideClick);
 function openModal() {
   modalMainContainer.style.display = 'block';
   modalBodyImage.style.display = 'none';
+  modalLoad.style.display = 'flex';
+  modalTitle.innerHTML = 'Be Right Back';
+  modalBodyText.innerHTML = 'Grabbing Your Button Information';
 }
 function closeModal() {
   modalMainContainer.style.display = 'none';
@@ -144,6 +148,7 @@ let weatherDescription = '';
 let iconCode = '';
 let iconUrl = '';
 function getWeather() {
+  openModal();
   if (isGeolocationEnabled == 'granted' || isGeolocationEnabled == 'prompt') {
     updateCoordinate(function(cookie) {
       lat = cookie.latitude;
@@ -176,7 +181,7 @@ function getWeather() {
           modalBodyText.style.display = 'block';
           modalFooterImage.src = iconUrl;
           modalFooterImage.style.display = 'block';
-          openModal();
+          modalLoad.style.display = 'none';
         });
     });
   } else {
@@ -191,6 +196,7 @@ const chuckFactUrl = 'https://api.chucknorris.io/jokes/random';
 
 // * Fetches for random chuck fact
 function getChuckFact() {
+  openModal();
   fetch(chuckFactUrl)
     .then(
       response => {
@@ -212,7 +218,7 @@ function getChuckFact() {
       modalBodyText.style.display = 'block';
       modalFooterImage.src = chuckIcon;
       modalFooterImage.style.display = 'block';
-      openModal();
+      modalLoad.style.display = 'none';
     });
 }
 
@@ -227,6 +233,8 @@ function showNumber(str) {
 
 // ? get the value from the SEARCH TAG YOU NEED TO MAKE
 function getUserNumber() {
+  openModal();
+  modalLoad.style.display = 'none';
   modalTitle.innerHTML = "What number's fact would you like?";
 
   // * Displays and resets input and hide old body
@@ -237,8 +245,6 @@ function getUserNumber() {
   modalFooterImage.style.display = 'block';
   modalFooterImage.src = 'images/questionMarkFire.ico';
   modalFooterImage.style = 'height: 10%; width: 10%';
-
-  openModal();
 
   inputFeild.addEventListener('keypress', function(e) {
     const inputVal = inputFeild.value;
@@ -257,8 +263,10 @@ function getUserNumber() {
       (function() {
         var scriptTag = document.createElement('script');
         scriptTag.async = true;
+        modalLoad.style.display = 'flex';
         scriptTag.src = `http://numbersapi.com/${inputVal}/math?callback=showNumber`;
         document.body.appendChild(scriptTag);
+        modalLoad.style.display = 'none';
       })();
     }
   });
@@ -270,6 +278,7 @@ apodUrl =
 
 //* fetches the APOD from the NASA API
 function getNasaInfo() {
+  openModal();
   fetch(apodUrl)
     .then(
       response => {
@@ -288,9 +297,15 @@ function getNasaInfo() {
       modalBodyText.style.display = 'block';
       modalBodyImage.src = jsonResponse.url;
       modalBodyImage.style.display = 'block';
-      modalFooterText.innerHTML = `&copy ${jsonResponse.copyright}`;
-
-      openModal();
+      let copyrightFooter = () => {
+        if (jsonResponse.copyright) {
+          modalFooterText.innerHTML = `&copy ${jsonResponse.copyright}`;
+        } else {
+          modalFooterText.innerHTML = `&copy NASA`;
+        }
+      };
+      copyrightFooter();
+      modalLoad.style.display = 'none';
       modalBodyImage.style.display = 'block'; //*counters reset
     });
 }
@@ -318,9 +333,11 @@ function speechReaderActivate() {
   const recognition = new SpeechRecognition();
 
   recognition.start();
+  openModal();
+  modalLoad.style.display = 'none';
   modalTitle.innerHTML = 'Tell Me A Story';
   modalBodyText.innerHTML = '(Start Speaking)';
-  openModal();
+  
 
   recognition.onresult = function(event) {
     const current = event.resultIndex;
@@ -329,7 +346,6 @@ function speechReaderActivate() {
     // * Puts speech to text on modal and displays
     modalBodyText.innerHTML = voiceTranscript;
     modalButton.style.display = 'block';
-    openModal();
   };
 }
 
@@ -337,7 +353,7 @@ function speechReaderActivate() {
 const readText = () => {
   const speech = new SpeechSynthesisUtterance();
   speech.volume = 0.3;
-  speech.rate = 1;
+  speech.rate = .8;
   speech.pitch = 1;
   speech.text = modalBodyText.innerHTML;
   window.speechSynthesis.speak(speech);
@@ -402,18 +418,17 @@ jSNav.addEventListener('click', buttonGlowSelector);
 cssNav.addEventListener('click', buttonGlowSelector);
 dontNav.addEventListener('click', buttonGlowSelector);
 
-
 // ? Button Glowing effect when nav click
 function buttonGlowAdd(btn) {
   const allCards = document.getElementsByClassName('card');
   console.log(btn[0].classList.value);
-  if (!btn[0].classList.value.includes('buttonGlow')){
+  if (!btn[0].classList.value.includes('buttonGlow')) {
     for (i = 0; i < allCards.length; ++i) {
       allCards[i].classList.remove('buttonGlow');
     }
   }
-    for (i = 0; i < btn.length; ++i) {
-      btn[i].classList.toggle('buttonGlow');
+  for (i = 0; i < btn.length; ++i) {
+    btn[i].classList.toggle('buttonGlow');
   }
 }
 
@@ -435,7 +450,14 @@ function buttonGlowSelector(e) {
       break;
     case 'dontNav':
       //TODO Finish this button
-      alert('Boo! (See now you will be scared for the whole day.... I told you not to press it.....');
+      let alertSound = new Audio('../images/spookButton.mp3');
+      alertSound.volume = 1;
+      alertSound.play();
+      setTimeout(() => {
+        alert(
+          'Boo! ( See now you will be scared for the whole day.... I told you not to press it.....)'
+        );
+      }, 200);
       break;
   }
 }
