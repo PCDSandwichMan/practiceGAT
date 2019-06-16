@@ -384,9 +384,9 @@ function killButtonsAnimation() {
   // * Restores buttons for user after delay
   window.setTimeout(() => {
     alert(
-      'Thanks for playing! (the buttons will come back shortly if your wish to continue playing)'
+      'Thanks for playing! ( The buttons will come back shortly if your wish to continue playing. )'
     );
-  }, 2000);
+  }, 1000);
   console.log('before');
   window.setTimeout(() => {
     console.log('during');
@@ -394,7 +394,7 @@ function killButtonsAnimation() {
     for (i = 0; i < allCards.length; ++i) {
       allCards[i].classList.remove('killButtons');
     }
-  }, 15000);
+  }, 8000);
 }
 
 //! Nav Bar Functionality
@@ -455,7 +455,7 @@ function buttonGlowSelector(e) {
       alertSound.play();
       setTimeout(() => {
         alert(
-          'Boo! ( See now you will be scared for the whole day.... I told you not to press it.....)'
+          'Boo! ( See now you\'ll be scared for the whole day.... I told you not to press it..... )'
         );
       }, 200);
       break;
