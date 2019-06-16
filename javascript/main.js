@@ -6,10 +6,10 @@ function backgronudImageChange() {
   const imageDefaults = document.body.style;
 
   setTimeout(() => {
-    document.body.style = imageDefaults;
+    document.body.classList.remove('getRolled');
   }, 4000);
 
-  imageDefaults.background = newImage;
+  document.body.classList.add('getRolled');
 }
 
 // ? Color Change

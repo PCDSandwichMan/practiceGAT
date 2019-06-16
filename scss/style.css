@@ -187,8 +187,15 @@ html {
 }
 
 body {
-  background: -webkit-gradient(linear, left top, left bottom, from(#0000002f), to(#0000002f)), url(../images/cityNight.jpg) no-repeat center center fixed;
-  background: linear-gradient(#0000002f, #0000002f), url(../images/cityNight.jpg) no-repeat center center fixed;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0000002f), to(#0000002f)), url("../images/cityNight.jpg") no-repeat center center fixed;
+  background: linear-gradient(#0000002f, #0000002f), url("../images/cityNight.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: #e2dddde3;
+}
+
+.getRolled {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0000002f), to(#0000002f)), url(../images/getRolled.png) no-repeat center center fixed;
+  background: linear-gradient(#0000002f, #0000002f), url(../images/getRolled.png) no-repeat center center fixed;
   background-size: cover;
   color: #e2dddde3;
 }

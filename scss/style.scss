@@ -18,7 +18,17 @@ html {
 // ! Main Grid & Page Adjusments
 body {
   background: linear-gradient(#0000002f, #0000002f),
-    url(../images/cityNight.jpg) no-repeat center center fixed;
+    url($backgroundImgUrl) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: $outlineText;
+}
+
+.getRolled {
+  background: linear-gradient(#0000002f, #0000002f),
+    url(../images/getRolled.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
