@@ -121,7 +121,7 @@ let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
 let long = 0;
 let lat = 0;
 let otherQueries = 'units=imperial';
-let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21'; //TODO - add api key
+let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21'; // Throw away key
 
 // ? Helpers for get weather
 // * gets the lat and long
@@ -274,7 +274,7 @@ function getUserNumber() {
 
 //! Nasa APOD (daily picture) API
 apodUrl =
-  'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True';
+  'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True'; // spam key
 
 //* fetches the APOD from the NASA API
 function getNasaInfo() {
