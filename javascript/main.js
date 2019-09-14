@@ -1,6 +1,12 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 // ! CSS Buttons Functions
 
 // ? Background Change
+const changeBG = document.getElementById('backgroundChange');
+changeBG.addEventListener('click', backgronudImageChange);
 function backgronudImageChange() {
   const newImage = 'url(../images/getRolled.png) no-repeat center center fixed';
   const imageDefaults = document.body.style;
@@ -13,6 +19,8 @@ function backgronudImageChange() {
 }
 
 // ? Color Change
+const changeColor = document.getElementById('changeTextColor');
+changeColor.addEventListener('click', changeTextColor);
 function changeTextColor() {
   const neonShadow =
     '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073';
@@ -31,6 +39,8 @@ function changeTextColor() {
 }
 
 // ? Remove All CSS
+const removeCSSVar = document.getElementById('removeCSS');
+removeCSSVar.addEventListener('click', removeCSS);
 function removeCSS() {
   setTimeout(() => {
     document.styleSheets[0].disabled = false;
@@ -40,6 +50,8 @@ function removeCSS() {
 }
 
 // ? Better Hover Effects
+const btnUpgrade = document.getElementById('betterHover');
+btnUpgrade.addEventListener('click', betterHover);
 function betterHover() {
   let textTags = document.getElementsByClassName('card');
 
@@ -121,7 +133,7 @@ let weatherURL = 'http://api.openweathermap.org/data/2.5/weather?';
 let long = 0;
 let lat = 0;
 let otherQueries = 'units=imperial';
-let weatherApikey = '&APPID=f815bde335c200f01cd0732879135a21'; // Throw away key
+let weatherApikey = process.env.WEATHER_KEY;
 
 // ? Helpers for get weather
 // * gets the lat and long
@@ -223,7 +235,7 @@ function getChuckFact() {
 }
 
 // ! Number Facts API
-const inputFeild = document.getElementById('numbersInput');
+const inputFelid = document.getElementById('numbersInput');
 let userNumber;
 function showNumber(str) {
   //*callback for the fact fetch
@@ -238,16 +250,16 @@ function getUserNumber() {
   modalTitle.innerHTML = "What number's fact would you like?";
 
   // * Displays and resets input and hide old body
-  inputFeild.value = '';
-  inputFeild.style.display = 'block';
+  inputFelid.value = '';
+  inputFelid.style.display = 'block';
   modalBodyText.style.display = 'none';
   // * Styling for the input field
   modalFooterImage.style.display = 'block';
   modalFooterImage.src = 'images/questionMarkFire.ico';
   modalFooterImage.style = 'height: 10%; width: 10%';
 
-  inputFeild.addEventListener('keypress', function(e) {
-    const inputVal = inputFeild.value;
+  inputFelid.addEventListener('keypress', function(e) {
+    const inputVal = inputFelid.value;
     const key = e.which || e.keyCode;
     if (key === 13) {
       //*check for enter key
@@ -256,7 +268,7 @@ function getUserNumber() {
         alert("INPUT MUST BE ALL NUMBERS! DON'T BREAK THE MATRIX NEO!");
         return false;
       }
-      inputFeild.style.display = 'none'; // *hides input field
+      inputFelid.style.display = 'none'; // *hides input field
 
       //* fetches number fact and displays to modal
 
@@ -273,8 +285,7 @@ function getUserNumber() {
 }
 
 //! Nasa APOD (daily picture) API
-apodUrl =
-  'https://api.nasa.gov/planetary/apod?api_key=XRjUqrBTRbTO4FnyFmn2gFUMF2EGTdX3Jc51c3L4&hd=True'; // spam key
+apodUrl = process.env.NASA_KEY;
 
 //* fetches the APOD from the NASA API
 function getNasaInfo() {
@@ -337,12 +348,11 @@ function speechReaderActivate() {
   modalLoad.style.display = 'none';
   modalTitle.innerHTML = 'Tell Me A Story';
   modalBodyText.innerHTML = '(Start Speaking)';
-  
 
   recognition.onresult = function(event) {
     const current = event.resultIndex;
     const voiceTranscript = event.results[current][0].transcript;
-    console.log(voiceTranscript);
+    // console.log(voiceTranscript);
     // * Puts speech to text on modal and displays
     modalBodyText.innerHTML = voiceTranscript;
     modalButton.style.display = 'block';
@@ -350,14 +360,16 @@ function speechReaderActivate() {
 }
 
 //*reads the script
-const readText = () => {
+const speechToTextRead = document.getElementById('fixTalk');
+speechToTextRead.addEventListener('click', readText);
+function readText() {
   const speech = new SpeechSynthesisUtterance();
   speech.volume = 0.3;
-  speech.rate = .8;
+  speech.rate = 0.8;
   speech.pitch = 1;
   speech.text = modalBodyText.innerHTML;
   window.speechSynthesis.speak(speech);
-};
+}
 
 //? Do a Barrel Roll button
 function doBarrelRoll() {
@@ -421,7 +433,7 @@ dontNav.addEventListener('click', buttonGlowSelector);
 // ? Button Glowing effect when nav click
 function buttonGlowAdd(btn) {
   const allCards = document.getElementsByClassName('card');
-  console.log(btn[0].classList.value);
+  // console.log(btn[0].classList.value);
   if (!btn[0].classList.value.includes('buttonGlow')) {
     for (i = 0; i < allCards.length; ++i) {
       allCards[i].classList.remove('buttonGlow');
@@ -433,8 +445,7 @@ function buttonGlowAdd(btn) {
 }
 
 function buttonGlowSelector(e) {
-  console.log(e.target.id);
-  //TODO add remove class edge case before function call
+  // console.log(e.target.id);
   switch (e.target.id) {
     case 'apiNav':
       buttonGlowAdd(apiEffect);
@@ -449,13 +460,13 @@ function buttonGlowSelector(e) {
       buttonGlowAdd(cssEffect);
       break;
     case 'dontNav':
-      //TODO Finish this button
       let alertSound = new Audio('../images/spookButton.mp3');
       alertSound.volume = 1;
       alertSound.play();
+
       setTimeout(() => {
         alert(
-          'Boo! ( See now you\'ll be scared for the whole day.... I told you not to press it..... )'
+          "Boo! ( See now you'll be scared for the whole day.... I told you not to press it..... )"
         );
       }, 200);
       break;

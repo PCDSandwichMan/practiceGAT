@@ -15,7 +15,7 @@ html {
   list-style: none;
 }
 
-// ! Main Grid & Page Adjusments
+// ! Main Grid & Page Adjustments
 body {
   background: linear-gradient(#0000002f, #0000002f),
     url($backgroundImgUrl) no-repeat center center fixed;
@@ -24,11 +24,12 @@ body {
   -o-background-size: cover;
   background-size: cover;
   color: $outlineText;
+  min-height: 100vh;
 }
 
 .getRolled {
   background: linear-gradient(#0000002f, #0000002f),
-    url(../images/getRolled.png) no-repeat center center fixed;
+    url(/images/getRolled.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,19 +37,8 @@ body {
   color: $outlineText;
 }
 
-.fullPage {
-  display: grid;
-  grid-template: 0.5fr repeat(3, 1fr) / repeat(5, 1fr);
-  grid-template-areas:
-    'head head head head head'
-    'side main   main   main   main'
-    'side main   main   main   main'
-    'side main   main   main   main';
-}
-
 // ! Header
 header {
-  grid-area: head;
   @extend %flexCompleteCenter;
   background-color: $outerTextColor;
   h1 {
@@ -63,10 +53,12 @@ header {
 
 // ! Sidebar
 aside {
-  grid-area: side;
   background-color: $outerTextColor;
-  display: flex;
-  flex-direction: column;
+  position: sticky;
+  top: 0;
+  float: left;
+  height: 100%;
+  width: 25vw;
   h2 {
     text-align: center;
     padding: 0.5vw 0vw;
@@ -97,26 +89,26 @@ aside {
 
 // ! Main Boxes
 main {
-  grid-area: main;
+  min-height: 100vh;
+  width: 70vw;
+  margin: 0.5vh 2vw 0 auto;
 }
 
 .boxes {
+  justify-content: center;
+  align-content: center;
   display: grid;
-  align-items: stretch;
   padding: 2vw;
-  grid-gap: 2vw;
-  grid-template: repeat(5, minmax(12vw, 1fr)) / repeat(
-      auto-fit,
-      minmax(18vw, 1fr)
-    );
+  grid-gap: 1vw;
+  grid-auto-rows: minmax(8vw, 150px);
+  grid-template-columns: repeat(auto-fit, 300px);
+
   transition: transform 1000ms;
   .card {
     @extend %flexCompleteCenter;
     background-color: $cardBackground;
-    width: 100%;
-    height: 100%;
     border-radius: 10px;
-    box-shadow: 1px 2px 5px #000;
+    box-shadow: 2px 2px 4px #333;
     transition: transform 500ms;
     a {
       @extend %flexCompleteCenter;
@@ -235,38 +227,115 @@ main {
   }
 }
 
-//! Media Queries
-// ? Galaxy S5
-@media only screen and (max-device-width: 360px) {
-  html {
-    font-size: 5.5px;
+// - Media Queries
+@media only screen and (max-device-width: 938px) {
+  header {
+    h1 {
+      font-size: 4rem;
+    }
+    h4 {
+      font-size: 1.2rem;
+      padding-bottom: 3vh;
+    }
   }
 }
 
-// ? Pixel 2
-@media only screen and (min-width: 361px) and (max-device-width: 411px) {
-  html {
-    font-size: 5px;
+@media only screen and (max-device-width: 874px) {
+  aside {
+    width: 16rem;
+    h2 {
+      text-align: center;
+      padding: 0.5rem 0vw;
+      margin: 0px 3rem;
+    }
   }
 }
 
-// ? Filler Fix
-@media only screen and (min-width: 412px) and (max-device-width: 550px) {
-  html {
-    font-size: 6.3px;
+@media only screen and (max-device-width: 796px) {
+  .modalMainContainer {
+    width: 100vw;
+    .modalContentContainer {
+      margin: 2vw auto;
+      width: 90vw;
+      .modalHeader {
+        padding: 1vw;
+        font-size: 1.5rem;
+      }
+      .modalBody {
+        padding: 5vw;
+        font-size: 1.25rem;
+        input {
+          height: 3rem;
+          font-size: 2rem;
+        }
+      }
+    }
   }
 }
 
-// ? IPad
-@media only screen and (min-width: 551px) and (max-device-width: 768px) {
-  html {
-    font-size: 8.5px;
+@media only screen and (max-device-width: 684px) {
+  .boxes {
+    padding: 2vh 0vw;
+    grid-gap: 3vw;
+    grid-auto-rows: minmax(8vw, 150px);
+    grid-template-columns: repeat(auto-fit, 1fr);
+    .card {
+      transition: transform 500ms;
+    }
   }
 }
 
-// ? IPad Pro
-@media only screen and (min-width: 769px) and (max-device-width: 1024px) {
-  html {
-    font-size: 11.3px;
+@media only screen and (max-device-width: 618px) {
+  header {
+    h1 {
+      font-size: 3rem;
+    }
+    h4 {
+      font-size: 1.1rem;
+      padding-bottom: 3vh;
+    }
+  }
+}
+
+@media only screen and (max-device-width: 592px) {
+  // ! Sidebar
+  aside {
+    position: static;
+    width: 100vw;
+    ul {
+      li {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  main {
+    width: 100vw;
+    margin: 0;
+  }
+
+  .boxes {
+    width: 100vw;
+    padding: 0vw;
+    grid-gap: 1vw;
+    grid-auto-rows: minmax(6vw, 150px);
+    grid-template-columns: repeat(auto-fit, 230px);
+    .card {
+      a {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 474px) {
+  header {
+    h1 {
+      font-size: 2.3rem;
+    }
+    h4 {
+      font-size: 1.1rem;
+      padding-bottom: 1vh;
+    }
   }
 }

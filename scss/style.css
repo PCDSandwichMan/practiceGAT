@@ -191,29 +191,17 @@ body {
   background: linear-gradient(#0000002f, #0000002f), url("../images/cityNight.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #e2dddde3;
+  min-height: 100vh;
 }
 
 .getRolled {
-  background: -webkit-gradient(linear, left top, left bottom, from(#0000002f), to(#0000002f)), url(../images/getRolled.png) no-repeat center center fixed;
-  background: linear-gradient(#0000002f, #0000002f), url(../images/getRolled.png) no-repeat center center fixed;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0000002f), to(#0000002f)), url(/images/getRolled.png) no-repeat center center fixed;
+  background: linear-gradient(#0000002f, #0000002f), url(/images/getRolled.png) no-repeat center center fixed;
   background-size: cover;
   color: #e2dddde3;
 }
 
-.fullPage {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 0.5fr (1fr)[3];
-  -ms-grid-columns: (1fr)[5];
-      grid-template: 0.5fr repeat(3, 1fr)/repeat(5, 1fr);
-      grid-template-areas: 'head head head head head' 'side main   main   main   main' 'side main   main   main   main' 'side main   main   main   main';
-}
-
 header {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 5;
-  grid-area: head;
   background-color: #0000007c;
 }
 
@@ -228,18 +216,13 @@ header h4 {
 }
 
 aside {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 1;
-  grid-area: side;
   background-color: #0000007c;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  float: left;
+  height: 100%;
+  width: 25vw;
 }
 
 aside h2 {
@@ -277,24 +260,24 @@ aside ul li:hover {
 }
 
 main {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 4;
-  grid-area: main;
+  min-height: 100vh;
+  width: 70vw;
+  margin: 0.5vh 2vw 0 auto;
 }
 
 .boxes {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
   display: -ms-grid;
   display: grid;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
   padding: 2vw;
-  grid-gap: 2vw;
-  -ms-grid-rows: (minmax(12vw, 1fr))[5];
-  -ms-grid-columns: (minmax(18vw, 1fr))[auto-fit];
-      grid-template: repeat(5, minmax(12vw, 1fr))/repeat(auto-fit, minmax(18vw, 1fr));
+  grid-gap: 1vw;
+  grid-auto-rows: minmax(8vw, 150px);
+  -ms-grid-columns: (300px)[auto-fit];
+      grid-template-columns: repeat(auto-fit, 300px);
   -webkit-transition: -webkit-transform 1000ms;
   transition: -webkit-transform 1000ms;
   transition: transform 1000ms;
@@ -303,11 +286,9 @@ main {
 
 .boxes .card {
   background-color: #2e3a56b2;
-  width: 100%;
-  height: 100%;
   border-radius: 10px;
-  -webkit-box-shadow: 1px 2px 5px #000;
-          box-shadow: 1px 2px 5px #000;
+  -webkit-box-shadow: 2px 2px 4px #333;
+          box-shadow: 2px 2px 4px #333;
   -webkit-transition: -webkit-transform 500ms;
   transition: -webkit-transform 500ms;
   transition: transform 500ms;
@@ -481,33 +462,107 @@ main {
   }
 }
 
-@media only screen and (max-device-width: 360px) {
-  html {
-    font-size: 5.5px;
+@media only screen and (max-device-width: 938px) {
+  header h1 {
+    font-size: 4rem;
+  }
+  header h4 {
+    font-size: 1.2rem;
+    padding-bottom: 3vh;
   }
 }
 
-@media only screen and (min-width: 361px) and (max-device-width: 411px) {
-  html {
-    font-size: 5px;
+@media only screen and (max-device-width: 874px) {
+  aside {
+    width: 16rem;
+  }
+  aside h2 {
+    text-align: center;
+    padding: 0.5rem 0vw;
+    margin: 0px 3rem;
   }
 }
 
-@media only screen and (min-width: 412px) and (max-device-width: 550px) {
-  html {
-    font-size: 6.3px;
+@media only screen and (max-device-width: 796px) {
+  .modalMainContainer {
+    width: 100vw;
+  }
+  .modalMainContainer .modalContentContainer {
+    margin: 2vw auto;
+    width: 90vw;
+  }
+  .modalMainContainer .modalContentContainer .modalHeader {
+    padding: 1vw;
+    font-size: 1.5rem;
+  }
+  .modalMainContainer .modalContentContainer .modalBody {
+    padding: 5vw;
+    font-size: 1.25rem;
+  }
+  .modalMainContainer .modalContentContainer .modalBody input {
+    height: 3rem;
+    font-size: 2rem;
   }
 }
 
-@media only screen and (min-width: 551px) and (max-device-width: 768px) {
-  html {
-    font-size: 8.5px;
+@media only screen and (max-device-width: 684px) {
+  .boxes {
+    padding: 2vh 0vw;
+    grid-gap: 3vw;
+    grid-auto-rows: minmax(8vw, 150px);
+    -ms-grid-columns: (1fr)[auto-fit];
+        grid-template-columns: repeat(auto-fit, 1fr);
+  }
+  .boxes .card {
+    -webkit-transition: -webkit-transform 500ms;
+    transition: -webkit-transform 500ms;
+    transition: transform 500ms;
+    transition: transform 500ms, -webkit-transform 500ms;
   }
 }
 
-@media only screen and (min-width: 769px) and (max-device-width: 1024px) {
-  html {
-    font-size: 11.3px;
+@media only screen and (max-device-width: 618px) {
+  header h1 {
+    font-size: 3rem;
+  }
+  header h4 {
+    font-size: 1.1rem;
+    padding-bottom: 3vh;
+  }
+}
+
+@media only screen and (max-device-width: 592px) {
+  aside {
+    position: static;
+    width: 100vw;
+  }
+  aside ul li {
+    font-size: 1.1rem;
+  }
+  main {
+    width: 100vw;
+    margin: 0;
+  }
+  .boxes {
+    width: 100vw;
+    padding: 0vw;
+    grid-gap: 1vw;
+    grid-auto-rows: minmax(6vw, 150px);
+    -ms-grid-columns: (230px)[auto-fit];
+        grid-template-columns: repeat(auto-fit, 230px);
+  }
+  .boxes .card a {
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (max-device-width: 474px) {
+  header h1 {
+    font-size: 2.3rem;
+  }
+  header h4 {
+    font-size: 1.1rem;
+    padding-bottom: 1vh;
   }
 }
 /*# sourceMappingURL=style.css.map */
